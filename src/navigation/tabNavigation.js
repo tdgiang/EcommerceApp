@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-import Home from '../screen/Home';
+import Home from './drawerNavigation';
 import Category from '../screen/Category';
 import Cart from '../screen/Cart';
 import Profile from '../screen/Profile';
