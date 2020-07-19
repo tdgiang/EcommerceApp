@@ -22,7 +22,7 @@ export default class StackNavigation extends Component {
     render() {
         return (
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="ForgotPassword">
+                <Stack.Navigator initialRouteName="WalkThrough">
                     <Stack.Screen 
                         name="Splash" component={Splash} 
                         options={{

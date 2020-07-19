@@ -9,14 +9,24 @@ import { View,
 import {colors,sizes}  from '../constants/theme';
 import {Text,Button,Block}  from '../component/index';
 import Data from '../constants/MockData/walkthrough';
+import Carousel from 'react-native-snap-carousel';
 
 const {width,height}=Dimensions.get('window');
 
 export default class WalkThrough extends Component {
-    renderItem(item){
+    _renderItem({item,index}){
         const {boxItem,imgSty}=styles;
+        const txtLeft=index<Data.length-1?{color:'black',fontWeight:'bold'}:{color:'gray'};
+        const txtRight=index==Data.length-1?{color:'black',fontWeight:'bold'}:{color:'gray'}
         return(
             <Block flex={1} style={boxItem} >
+                <Block flex={1} center   >
+                    <Block  row  center >
+                        <Text style={txtLeft} title>0{index+1}</Text>
+                        <View style={{width:40,height:2,backgroundColor:'gray'}} ></View>
+                        <Text title  style={txtRight} >0{Data.length}</Text>
+                    </Block>
+                </Block>
                 <Block flex={7} >
                     <Image
                         source={item.img}
@@ -41,27 +51,17 @@ export default class WalkThrough extends Component {
     
     render() {
         const {btnFooter}=styles;
-        
-
-
         return (
            <Block  color={'white'}>
-               <Block flex={1}>
-
-               </Block>
-               <Block flex={10} >
-                  
-                        <FlatList
-                            data={Data}
-                            horizontal
-                            renderItem={({item,index})=>this.renderItem(item)}
-                            snapToAlignment={'center'}
-                            scrollEnabled
-                            pagingEnabled
-                            scrollEventThrottle={16}
-                            showsHorizontalScrollIndicator={false}
-                        />
-                 
+             
+               <Block flex={10} center >
+                    <Carousel
+                        ref={(c) => { this._carousel = c; }}
+                        data={Data}
+                        renderItem={this._renderItem}
+                        sliderWidth={width}
+                        itemWidth={width-100}
+                    />
                </Block>
                 <TouchableOpacity>
                     <View   style={btnFooter} >
@@ -80,11 +80,8 @@ const styles=StyleSheet.create({
         height:50,
         backgroundColor:'black',
         alignItems:'center',
-        justifyContent:'center'
-    },
-    boxItem:{
-        width:width-80,
-        marginHorizontal:40
+        justifyContent:'center',
+        
     },
     imgSty:{
         height:height/2+100,
